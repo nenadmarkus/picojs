@@ -1,7 +1,6 @@
 /* This library is released under the MIT license, see https://github.com/nenadmarkus/picojs */
-pico = {}
 
-pico.unpack_cascade = function(bytes)
+export const unpack_cascade = function(bytes)
 {
 	//
 	const dview = new DataView(new ArrayBuffer(4));
@@ -82,7 +81,7 @@ pico.unpack_cascade = function(bytes)
 	return classify_region;
 }
 
-pico.run_cascade = function(image, classify_region, params)
+export const run_cascade = function(image, classify_region, params)
 {
 	const pixels = image.pixels;
 	const nrows = image.nrows;
@@ -116,7 +115,7 @@ pico.run_cascade = function(image, classify_region, params)
     return detections;
 }
 
-pico.cluster_detections = function(dets, iouthreshold)
+export const cluster_detections = function(dets, iouthreshold)
 {
 	/*
 		sort detections by their score
@@ -169,7 +168,7 @@ pico.cluster_detections = function(dets, iouthreshold)
 	return clusters;
 }
 
-pico.instantiate_detection_memory = function(size)
+export const instantiate_detection_memory = function(size)
 {
 	/*
 		initialize a circular buffer of `size` elements
