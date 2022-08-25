@@ -187,7 +187,7 @@ export const instantiate_detection_memory = function(size)
 		memory[n] = dets;
 		n = (n+1)%memory.length;
 		dets = [];
-		for(i=0; i<memory.length; ++i)
+		for(let i=0; i<memory.length; ++i)
 			dets = dets.concat(memory[i]);
 		//
 		return dets;

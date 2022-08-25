@@ -51,18 +51,18 @@ window.addEventListener("DOMContentLoaded",()=>{
         /*
             (4) this function is called each time a video frame becomes available
         */
-        let processfn = function(video, dt) {
+        let processfn = (video, dt) => {
             // render the video frame to the canvas element and extract RGBA pixel data
             ctx.drawImage(video, 0, 0);
             let rgba = ctx.getImageData(0, 0, 640, 480).data;
             // prepare input to `run_cascade`
-            image = {
+            let image = {
                 "pixels": rgba_to_grayscale(rgba, 480, 640),
                 "nrows": 480,
                 "ncols": 640,
                 "ldim": 640
             }
-            params = {
+            let params = {
                 "shiftfactor": 0.1, // move the detection window by 10% of its size
                 "minsize": 100,     // minimum size of a face
                 "maxsize": 1000,    // maximum size of a face
@@ -71,11 +71,11 @@ window.addEventListener("DOMContentLoaded",()=>{
             // run the cascade over the frame and cluster the obtained detections
             // dets is an array that contains (r, c, s, q) quadruplets
             // (representing row, column, scale and detection score)
-            dets = run_cascade(image, facefinder_classify_region, params);
+            let dets = run_cascade(image, facefinder_classify_region, params);
             dets = update_memory(dets);
             dets = cluster_detections(dets, 0.2); // set IoU threshold to 0.2
             // draw detections
-            for(i=0; i<dets.length; ++i)
+            for(let i=0; i<dets.length; ++i)
                 // check the detection score
                 // if it's above the threshold, draw it
                 // (the constant 50.0 is empirical: other cascades might require a different one)
@@ -129,4 +129,5 @@ window.addEventListener("DOMContentLoaded",()=>{
         */
         initialized = true;
     }
+    document.querySelector('#start-webcam').addEventListener('click',button_callback);
 });
